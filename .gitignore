@@ -1,0 +1,6 @@
+*.pbix
+*.pdf
+
+!Controle de Obras/20*/*.xlsx
+Controle de Obras/20*/
+controle_obras/
