@@ -1,5 +1,7 @@
 *.pbix
 *.pdf
+*.pyc
+_pycache_/
 
 !Controle de Obras/20*/*.xlsx
 Controle de Obras/20*/

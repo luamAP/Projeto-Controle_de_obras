@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="img">
+    <file>Logo-prefeitura-de-manaus-preto.png</file>
+    <file>logo-secretaria-seminf-header.png</file>
+    <file>rodape.png</file>
+  </qresource>
+</RCC>
