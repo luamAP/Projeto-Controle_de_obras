@@ -36,10 +36,11 @@ class Database():
             cursor = self.connection.cursor()
             cursor.execute("""SELECT * FROM users;""")
         
+            # print(cursor.fetchall())
             for l in cursor.fetchall():
-                print(l[2], l[4], l[5])
-                if l[2].upper()==nome.upper() and l[4].upper()==senha.upper(): return l[5]
-                else: return 'Sem acesso'
+                # print(l)
+                if l[1].upper()==nome.upper() and l[3]==senha: return l[4]
+            return 'Sem acesso'
 
         except AttributeError: print('Erro ao verificar dados!')
     
