@@ -1,5 +1,5 @@
 *.pbix
-*.pdf
+# *.pdf
 *.pyc
 _pycache_/
 

@@ -1,7 +1,7 @@
 from PySide2.QtWidgets import QApplication, QWidget, QMainWindow, QMessageBox, QTreeWidgetItem
 from PySide2 import QtCore
-from ui_main import Ui_MainWindow
-from ui_login import Ui_login
+from UI.ui_main import Ui_MainWindow
+from UI.ui_login import Ui_login
 from database import Database
 import sys
 import re
