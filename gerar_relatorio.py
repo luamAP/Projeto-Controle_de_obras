@@ -5,6 +5,8 @@ from reportlab.platypus import Paragraph, Table, TableStyle, Frame, Image, Space
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 import pandas as pd
 from datetime import datetime
+import os
+import shutil
 
 ## CODIGO que cancela as Warnings do pandas
 import warnings
@@ -141,7 +143,7 @@ def cabecalho(pdf: canvas.Canvas, altura_pag, largura_pag):
     metade_cabecalho1 = altura_pag - (margens+5) - cabecalho1[1] + cabecalho1[1]/2
    
     # Imagem SEMINF, 2 parte do cabecalho
-    inserir_imagem(pdf,'logo-secretaria-seminf-header.png', largura, metade_cabecalho1, 120,centered='CENTER')
+    inserir_imagem(pdf,'logo-secretaria-seminf-header.png', largura_pag, metade_cabecalho1, 120,centered='CENTER')
 
     # Criar um estilo personalizado com a fonte desejada
     estilo_personalizado = ParagraphStyle(
@@ -185,12 +187,28 @@ def rodape(pdf:canvas.Canvas):
         alt = paragrafo_rodape.wrap(landscape(A4)[0], 0)[1]
         paragrafo_rodape.drawOn(pdf, 0, 15+2)
 
-def __init__(self):
+def caminho(file_name="file.pdf", dir=None):
+    print(dir, type(dir))
+    # Obtenha o diretório de downloads do sistema
+    if dir==None: dir = os.path.expanduser('~' + os.sep + 'Downloads')
+    else: dir = os.path.normpath(dir)
+
+    # Crie o caminho completo para o destino (pasta de downloads + nome do arquivo)
+    return os.path.join(dir, file_name)
+
+    # Copie ou mova o arquivo para a pasta de downloads
+    # Use shutil.copy() para copiar ou shutil.move() para mover
+    shutil.copy(caminho_arquivo_origem, caminho_destino)
+
+    print(f'Arquivo salvo em: {caminho_destino}')
+
+
+def gerar(path):
     # Lê o DataFrame do arquivo Excel
-    df = pd.read_excel(r"C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\obras_2021.xlsx")
-        
+    df = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\obras_2021.xlsx')
+
     # Cria um arquivo PDF
-    pdf_file = "relatorio_de_obras.pdf"
+    pdf_file = caminho("relatorio_de_obras.pdf", path)
     c = canvas.Canvas(pdf_file, pagesize=landscape(A4))
     largura, altura = landscape(A4)
     # largura x altura
@@ -281,4 +299,4 @@ def __init__(self):
 
     # Fecha o arquivo PDF
     c.save()
-    print(f"O arquivo '{pdf_file}' foi criado com sucesso.")
+    return f'O arquivo relatorio_de_obras.pdf foi criado com sucesso!'

@@ -1,13 +1,13 @@
-from PySide2.QtWidgets import QApplication, QWidget, QMainWindow, QMessageBox, QTreeWidgetItem
 from PySide2 import QtCore
+from PySide2.QtWidgets import QApplication, QWidget, QMainWindow, QMessageBox, QTreeWidgetItem, QFileDialog
 from UI.ui_main import Ui_MainWindow
 from UI.ui_login import Ui_login
 from database import Database
 import sys
-import re
 import sqlite3
 import pandas as pd
 import numpy as np
+from gerar_relatorio import *
 
 
 class Login(QWidget, Ui_login):
@@ -18,6 +18,13 @@ class Login(QWidget, Ui_login):
         self.setWindowTitle("Login")
 
         self.btn_login.clicked.connect(self.check_login)
+
+    def msg(type: QMessageBox, title, text):
+        msg = QMessageBox()
+        msg.setIcon(type)
+        msg.setWindowTitle(title)
+        msg.setText(text)
+        msg.exec_()
     
     def check_login(self):
         # print('check_login')
@@ -34,11 +41,7 @@ class Login(QWidget, Ui_login):
         else:
             if self.trys < 3:
                 self.trys += 1
-                msg = QMessageBox()
-                msg.setIcon(QMessageBox.Warning)
-                msg.setWindowTitle("Senha Incorreta")
-                msg.setText(f"Login ou Senha incorretas!\n\nTentativas: {self.trys} de 3")
-                msg.exec_()
+                self.msg(QMessageBox.Warning, "Senha Incorreta", f"Login ou Senha incorretas!\n\nTentativas: {self.trys} de 3")
             if self.trys == 3:
                 #bloquear usuario
                 self.users.close_conection()
@@ -64,15 +67,23 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.btn_cadastro_usuario.clicked.connect(self.subscribe_user)
 
+        #IMPORTANDO RELATIOS
+        # self.btn_open_dir.clicked.connect(self.open_path)
+        self.btn_importar.clicked.connect(self.exportar_relatorio)
+
         self.reset_tables()
+
+    def msg(self, type, title, text):
+        msg = QMessageBox()
+        msg.setIcon(type)
+        msg.setWindowTitle(title)
+        msg.setText(text)
+        msg.exec_()
 
     def subscribe_user(self):
         if self.txt_senha_2.text() != self.txt_senha.text():
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setWindowTitle("Senhas Divergentes")
-            msg.setText("As senhas devem ser iguais!")
-            msg.exec_()
+            self.msg(QMessageBox.Warning, "Senha Incorreta", "As senhas não coincidem!")
+            
             return None
 
         nome = self.txt_nome.text()
@@ -81,11 +92,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         acesso = self.cb_perfil.currentText()
 
         if nome == "" or setor == "" or senha == "" or acesso == "":
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setWindowTitle("Campos Vazios")
-            msg.setText("Todos os campos devem ser preenchidos!")
-            msg.exec_()
+            self.msg(QMessageBox.Warning, "Campos Vazios", "Todos os campos devem ser preenchidos!")
             return None
 
         db=Database()
@@ -93,11 +100,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         db.insert_user(nome, setor, senha, acesso)
         db.close_conection()
 
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Warning)
-        msg.setWindowTitle("Cadasto de Usuário")
-        msg.setText("Cadastro realizado com sucesso!")
-        msg.exec_()
+        self.msg(QMessageBox.Information, "Cadastro", "Cadastro realizado com sucesso!")
 
         self.txt_setor.setText("")
         self.txt_matricula.setText("")
@@ -106,12 +109,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.txt_nome.setText("")
 
     def table_contratos(self):
+        return 0
         self.tw_contratos.setStyleSheet(u' QHeaderView{ color:black}; color: rgb(0, 0, 0); font-size: 15px;')
 
         # cn = sqlite3.connect('contratos.db')
         # resultado = pd.read_sql_query("SELECT * FROM ", cn)
 
-        resultado = pd.read_excel('contratos.xlsx')
+        resultado = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\contratos.xlsx')
         resultado = resultado.astype(str)
         resultado.fillna(np.nan, inplace=True)
         resultado.replace('nan', '', inplace=True)
@@ -134,7 +138,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def table_contabil(self):
         self.tw_contabil.setStyleSheet(u' QHeaderView{ color:black}; color: rgb(0, 0, 0); font-size: 15px;')
 
-        resultado = pd.read_excel('contabil.xlsx')
+        resultado = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\contabil.xlsx')
 
         resultado.fillna('', inplace=True)
         resultado.replace(np.nan, '', inplace=True)
@@ -160,10 +164,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # for i in range(1,8): self.tw_contratos.resizeColumnToContents(i)
 
     def table_obras(self):
-        return 0
         self.tw_contratos.setStyleSheet(u' QHeaderView{ color:black}; color: rgb(0, 0, 0); font-size: 15px;')
 
-        resultado = pd.read_excel('contratos.xlsx')
+        resultado = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\contratos.xlsx')
 
         # cn = sqlite3.connect('contratos.db')
         # resultado = pd.read_sql_query("SELECT * FROM ", cn)
@@ -190,7 +193,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # cn = sqlite3.connect('contratos.db')
         # resultado = pd.read_sql_query("SELECT * FROM ", cn)
 
-        resultado = pd.read_excel('engenharia.xlsx')
+        resultado = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\engenharia.xlsx')
                 
         for coluna in resultado.columns: 
             # print(coluna)
@@ -227,7 +230,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def table_financeiro(self):
         self.tw_financeiro.setStyleSheet(u' QHeaderView{ color:black}; color: rgb(0, 0, 0); font-size: 15px;')
 
-        resultado = pd.read_excel('financeiro.xlsx')
+        resultado = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\financeiro.xlsx')
         include = ['CONTRATO N°', 'MEDIÇÕES', 'NOTA FISCAL']
         resultado[include] = resultado[include].astype(str)
 
@@ -275,6 +278,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.table_engenharia()
         self.table_financeiro()
         # self.table_obras()
+
+    def open_path(self):
+        self.path = QFileDialog.getExistingDirectory(self, str("Abrir pasta"), "/home/Downloads", QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
+
+        self.txt_path.setText(self.path)
+        print(self.path, type(self.path))
+        return self.path
+
+    def exportar_relatorio(self): 
+        # text = gerar(self.open_path())
+        self.msg(QMessageBox.Information, "Importar Relatório", gerar(self.open_path()))
+
 
 
 if __name__=="__main__":

@@ -162,6 +162,7 @@ class Ui_MainWindow(object):
 
         self.pages = QStackedWidget(self.centralwidget)
         self.pages.setObjectName(u"pages")
+        self.pages.setMinimumSize(QSize(200, 80))
         font = QFont()
         font.setPointSize(16)
         self.pages.setFont(font)
@@ -188,6 +189,120 @@ class Ui_MainWindow(object):
         self.tabWidget.setMovable(False)
         self.tab_obras = QWidget()
         self.tab_obras.setObjectName(u"tab_obras")
+        self.verticalLayout_10 = QVBoxLayout(self.tab_obras)
+        self.verticalLayout_10.setObjectName(u"verticalLayout_10")
+        self.label_17 = QLabel(self.tab_obras)
+        self.label_17.setObjectName(u"label_17")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label_17.sizePolicy().hasHeightForWidth())
+        self.label_17.setSizePolicy(sizePolicy1)
+        self.label_17.setMinimumSize(QSize(300, 80))
+        font2 = QFont()
+        font2.setPointSize(23)
+        font2.setBold(True)
+        font2.setWeight(75)
+        self.label_17.setFont(font2)
+
+        self.verticalLayout_10.addWidget(self.label_17)
+
+        self.horizontalLayout_14 = QHBoxLayout()
+        self.horizontalLayout_14.setObjectName(u"horizontalLayout_14")
+        self.txt_path = QLineEdit(self.tab_obras)
+        self.txt_path.setObjectName(u"txt_path")
+        self.txt_path.setMinimumSize(QSize(0, 35))
+        font3 = QFont()
+        font3.setPointSize(12)
+        self.txt_path.setFont(font3)
+        self.txt_path.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_14.addWidget(self.txt_path)
+
+        self.btn_open_dir = QPushButton(self.tab_obras)
+        self.btn_open_dir.setObjectName(u"btn_open_dir")
+        self.btn_open_dir.setMinimumSize(QSize(120, 35))
+        self.btn_open_dir.setFont(font3)
+        self.btn_open_dir.setStyleSheet(u"QPushButton {\n"
+"                 background-color: #FFFFFF;  /* Cor de fundo branca */\n"
+"                color: #000000;            /* Cor do texto preto */ \n"
+"				border:1px solid ;\n"
+"                border-radius: 5px;        /* Borda arredondada */\n"
+"				border-top-right-radius:20px;\n"
+"                padding: 5px 10px;          /* Espa\u00e7amento interno */\n"
+"}\n"
+"QPushButton:hover {\n"
+"                background-color: #000000;  /* Altera a cor de fundo ao passar o mouse */\n"
+"                color: #FFFFFF;            /* Altera a cor do texto ao passar o mouse */\n"
+"}")
+
+        self.horizontalLayout_14.addWidget(self.btn_open_dir)
+
+
+        self.verticalLayout_10.addLayout(self.horizontalLayout_14)
+
+        self.horizontalLayout_16 = QHBoxLayout()
+        self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
+        self.radio_pdf = QRadioButton(self.tab_obras)
+        self.radio_pdf.setObjectName(u"radio_pdf")
+
+        self.horizontalLayout_16.addWidget(self.radio_pdf)
+
+        self.radio_exce = QRadioButton(self.tab_obras)
+        self.radio_exce.setObjectName(u"radio_exce")
+
+        self.horizontalLayout_16.addWidget(self.radio_exce)
+
+
+        self.verticalLayout_10.addLayout(self.horizontalLayout_16)
+
+        self.horizontalLayout_15 = QHBoxLayout()
+        self.horizontalLayout_15.setObjectName(u"horizontalLayout_15")
+        self.label_15 = QLabel(self.tab_obras)
+        self.label_15.setObjectName(u"label_15")
+
+        self.horizontalLayout_15.addWidget(self.label_15)
+
+        self.btn_importar = QPushButton(self.tab_obras)
+        self.btn_importar.setObjectName(u"btn_importar")
+        font4 = QFont()
+        font4.setBold(True)
+        font4.setWeight(75)
+        self.btn_importar.setFont(font4)
+        self.btn_importar.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_importar.setStyleSheet(u"/* Estilos padr\u00e3o do bot\u00e3o */\n"
+"QPushButton {\n"
+"    display: inline-block;\n"
+"	font-size: 16px;\n"
+"    padding: 12px 20px;	\n"
+"	background-color: rgb(255, 255, 255);\n"
+"    \n"
+"	color: rgb(0, 0, 0);\n"
+"    border-radius: 20px;\n"
+"	border:1px solid;\n"
+"	gridline-color: rgb(0, 0, 0);\n"
+"    cursor: pointer;\n"
+"    transition: background-color 0.3s;\n"
+"}\n"
+"\n"
+"/* Estilos do bot\u00e3o ao passar o mouse */\n"
+"QPushButton:hover {\n"
+"    \n"
+"	\n"
+"	background-color: rgb(195, 195, 195);\n"
+"}\n"
+"")
+
+        self.horizontalLayout_15.addWidget(self.btn_importar)
+
+        self.label_16 = QLabel(self.tab_obras)
+        self.label_16.setObjectName(u"label_16")
+
+        self.horizontalLayout_15.addWidget(self.label_16)
+
+
+        self.verticalLayout_10.addLayout(self.horizontalLayout_15)
+
         self.tabWidget.addTab(self.tab_obras, "")
         self.tab_contratos = QWidget()
         self.tab_contratos.setObjectName(u"tab_contratos")
@@ -197,12 +312,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
         self.btn_procurar_contratos = QPushButton(self.tab_contratos)
         self.btn_procurar_contratos.setObjectName(u"btn_procurar_contratos")
-        font2 = QFont()
-        font2.setFamily(u"Times New Roman")
-        font2.setBold(True)
-        font2.setItalic(True)
-        font2.setWeight(75)
-        self.btn_procurar_contratos.setFont(font2)
+        font5 = QFont()
+        font5.setFamily(u"Times New Roman")
+        font5.setBold(True)
+        font5.setItalic(True)
+        font5.setWeight(75)
+        self.btn_procurar_contratos.setFont(font5)
         self.btn_procurar_contratos.setTabletTracking(False)
         self.btn_procurar_contratos.setStyleSheet(u"/* Estilos padr\u00e3o do bot\u00e3o */\n"
 "QPushButton {\n"
@@ -227,7 +342,7 @@ class Ui_MainWindow(object):
         if QIcon.hasThemeIcon(iconThemeName):
             icon = QIcon.fromTheme(iconThemeName)
         else:
-            icon.addFile(u".", QSize(), QIcon.Normal, QIcon.Off)
+            icon.addFile(u"../../../../.designer/backup", QSize(), QIcon.Normal, QIcon.Off)
         
         self.btn_procurar_contratos.setIcon(icon)
 
@@ -243,13 +358,13 @@ class Ui_MainWindow(object):
 
         self.tw_contratos = QTreeWidget(self.tab_contratos)
         self.tw_contratos.setObjectName(u"tw_contratos")
-        font3 = QFont()
-        font3.setFamily(u"MS Shell Dlg 2")
-        font3.setPointSize(11)
-        font3.setBold(False)
-        font3.setItalic(False)
-        font3.setWeight(50)
-        self.tw_contratos.setFont(font3)
+        font6 = QFont()
+        font6.setFamily(u"MS Shell Dlg 2")
+        font6.setPointSize(11)
+        font6.setBold(False)
+        font6.setItalic(False)
+        font6.setWeight(50)
+        self.tw_contratos.setFont(font6)
         self.tw_contratos.setStyleSheet(u"font: 11pt \"MS Shell Dlg 2\";")
         self.tw_contratos.setAutoScrollMargin(16)
 
@@ -264,7 +379,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
         self.btn_procurar_financeiro = QPushButton(self.tab_financeiro)
         self.btn_procurar_financeiro.setObjectName(u"btn_procurar_financeiro")
-        self.btn_procurar_financeiro.setFont(font2)
+        self.btn_procurar_financeiro.setFont(font5)
         self.btn_procurar_financeiro.setTabletTracking(False)
         self.btn_procurar_financeiro.setStyleSheet(u"/* Estilos padr\u00e3o do bot\u00e3o */\n"
 "QPushButton {\n"
@@ -311,7 +426,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
         self.btn_procurar_contabil = QPushButton(self.tab_contabil)
         self.btn_procurar_contabil.setObjectName(u"btn_procurar_contabil")
-        self.btn_procurar_contabil.setFont(font2)
+        self.btn_procurar_contabil.setFont(font5)
         self.btn_procurar_contabil.setTabletTracking(False)
         self.btn_procurar_contabil.setStyleSheet(u"/* Estilos padr\u00e3o do bot\u00e3o */\n"
 "QPushButton {\n"
@@ -358,7 +473,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
         self.btn_procurar_engenharia = QPushButton(self.tab_engenharia)
         self.btn_procurar_engenharia.setObjectName(u"btn_procurar_engenharia")
-        self.btn_procurar_engenharia.setFont(font2)
+        self.btn_procurar_engenharia.setFont(font5)
         self.btn_procurar_engenharia.setTabletTracking(False)
         self.btn_procurar_engenharia.setStyleSheet(u"/* Estilos padr\u00e3o do bot\u00e3o */\n"
 "QPushButton {\n"
@@ -392,7 +507,7 @@ class Ui_MainWindow(object):
 
         self.tw_engenharia = QTreeWidget(self.tab_engenharia)
         self.tw_engenharia.setObjectName(u"tw_engenharia")
-        self.tw_engenharia.setFont(font3)
+        self.tw_engenharia.setFont(font6)
         self.tw_engenharia.setStyleSheet(u"font: 11pt \"MS Shell Dlg 2\";")
 
         self.verticalLayout_9.addWidget(self.tw_engenharia)
@@ -407,11 +522,11 @@ class Ui_MainWindow(object):
         self.label_13 = QLabel(self.pg_contato)
         self.label_13.setObjectName(u"label_13")
         self.label_13.setGeometry(QRect(370, 40, 131, 31))
-        font4 = QFont()
-        font4.setPointSize(20)
-        font4.setBold(True)
-        font4.setWeight(75)
-        self.label_13.setFont(font4)
+        font7 = QFont()
+        font7.setPointSize(20)
+        font7.setBold(True)
+        font7.setWeight(75)
+        self.label_13.setFont(font7)
         self.pages.addWidget(self.pg_contato)
         self.pg_home = QWidget()
         self.pg_home.setObjectName(u"pg_home")
@@ -438,9 +553,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.label_3 = QLabel(self.pg_cadastro)
         self.label_3.setObjectName(u"label_3")
-        font5 = QFont()
-        font5.setPointSize(12)
-        self.label_3.setFont(font5)
+        self.label_3.setFont(font3)
         self.label_3.setStyleSheet(u"background-color: rgb(255, 222, 155, 0);")
 
         self.horizontalLayout_2.addWidget(self.label_3)
@@ -458,7 +571,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.label_10 = QLabel(self.pg_cadastro)
         self.label_10.setObjectName(u"label_10")
-        self.label_10.setFont(font5)
+        self.label_10.setFont(font3)
         self.label_10.setStyleSheet(u"background-color: rgb(255, 222, 155, 0);")
 
         self.horizontalLayout_8.addWidget(self.label_10)
@@ -476,7 +589,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.label_4 = QLabel(self.pg_cadastro)
         self.label_4.setObjectName(u"label_4")
-        self.label_4.setFont(font5)
+        self.label_4.setFont(font3)
         self.label_4.setStyleSheet(u"background-color: rgb(255, 222, 155, 0);")
 
         self.horizontalLayout_3.addWidget(self.label_4)
@@ -494,7 +607,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.label_5 = QLabel(self.pg_cadastro)
         self.label_5.setObjectName(u"label_5")
-        self.label_5.setFont(font5)
+        self.label_5.setFont(font3)
         self.label_5.setStyleSheet(u"background-color: rgb(255, 222, 155, 0);")
 
         self.horizontalLayout_4.addWidget(self.label_5)
@@ -513,7 +626,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.label_6 = QLabel(self.pg_cadastro)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font5)
+        self.label_6.setFont(font3)
         self.label_6.setStyleSheet(u"background-color: rgb(255, 222, 155, 0);")
 
         self.horizontalLayout_5.addWidget(self.label_6)
@@ -532,7 +645,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.label_7 = QLabel(self.pg_cadastro)
         self.label_7.setObjectName(u"label_7")
-        self.label_7.setFont(font5)
+        self.label_7.setFont(font3)
         self.label_7.setStyleSheet(u"background-color: rgb(255, 222, 155, 0);")
 
         self.horizontalLayout_7.addWidget(self.label_7)
@@ -542,7 +655,7 @@ class Ui_MainWindow(object):
         self.cb_perfil.addItem("")
         self.cb_perfil.addItem("")
         self.cb_perfil.setObjectName(u"cb_perfil")
-        self.cb_perfil.setFont(font5)
+        self.cb_perfil.setFont(font3)
         self.cb_perfil.setStyleSheet(u"background-color: rgb(255, 255, 255, 0.75);")
 
         self.horizontalLayout_7.addWidget(self.cb_perfil)
@@ -560,10 +673,7 @@ class Ui_MainWindow(object):
 
         self.btn_cadastro_usuario = QPushButton(self.pg_cadastro)
         self.btn_cadastro_usuario.setObjectName(u"btn_cadastro_usuario")
-        font6 = QFont()
-        font6.setBold(True)
-        font6.setWeight(75)
-        self.btn_cadastro_usuario.setFont(font6)
+        self.btn_cadastro_usuario.setFont(font4)
         self.btn_cadastro_usuario.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_cadastro_usuario.setStyleSheet(u"/* Estilos padr\u00e3o do bot\u00e3o */\n"
 "QPushButton {\n"
@@ -601,7 +711,7 @@ class Ui_MainWindow(object):
         self.label_14 = QLabel(self.pg_sobre)
         self.label_14.setObjectName(u"label_14")
         self.label_14.setGeometry(QRect(400, 20, 101, 71))
-        self.label_14.setFont(font4)
+        self.label_14.setFont(font7)
         self.pages.addWidget(self.pg_sobre)
         self.pg_config = QWidget()
         self.pg_config.setObjectName(u"pg_config")
@@ -633,11 +743,11 @@ class Ui_MainWindow(object):
 
         self.rodape = QLabel(self.centralwidget)
         self.rodape.setObjectName(u"rodape")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.rodape.sizePolicy().hasHeightForWidth())
-        self.rodape.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.rodape.sizePolicy().hasHeightForWidth())
+        self.rodape.setSizePolicy(sizePolicy2)
         self.rodape.setStyleSheet(u"background-image: url(:/img/rodape.png);\n"
 "background-size: cover;\n"
 "")
@@ -650,7 +760,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.pages.setCurrentIndex(0)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -663,6 +773,14 @@ class Ui_MainWindow(object):
         self.btn_sobre.setText(QCoreApplication.translate("MainWindow", u"SOBRE", None))
         self.btn_contato.setText(QCoreApplication.translate("MainWindow", u"CONTATO", None))
         self.btn_config.setText(QCoreApplication.translate("MainWindow", u"CONFIGURA\u00c7\u00d5ES", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">IMPORTAR OBRAS</p></body></html>", None))
+        self.txt_path.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Selecione a pasta de destino", None))
+        self.btn_open_dir.setText(QCoreApplication.translate("MainWindow", u"Procurar", None))
+        self.radio_pdf.setText(QCoreApplication.translate("MainWindow", u"Gerar em PDF", None))
+        self.radio_exce.setText(QCoreApplication.translate("MainWindow", u"Gerar em Excel", None))
+        self.label_15.setText("")
+        self.btn_importar.setText(QCoreApplication.translate("MainWindow", u"IMPORTAR", None))
+        self.label_16.setText("")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_obras), QCoreApplication.translate("MainWindow", u"Obras", None))
         self.btn_procurar_contratos.setText(QCoreApplication.translate("MainWindow", u"PROCURAR", None))
         ___qtreewidgetitem = self.tw_contratos.headerItem()

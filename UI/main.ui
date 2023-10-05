@@ -192,6 +192,12 @@ QPushButton:hover {
     </item>
     <item>
      <widget class="QStackedWidget" name="pages">
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>80</height>
+       </size>
+      </property>
       <property name="font">
        <font>
         <pointsize>16</pointsize>
@@ -242,6 +248,168 @@ QPushButton:hover {
            <attribute name="title">
             <string>Obras</string>
            </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_10">
+            <item>
+             <widget class="QLabel" name="label_17">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>80</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>23</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;IMPORTAR OBRAS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_14">
+              <item>
+               <widget class="QLineEdit" name="txt_path">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>35</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string>Selecione a pasta de destino</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_open_dir">
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>35</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
+                 background-color: #FFFFFF;  /* Cor de fundo branca */
+                color: #000000;            /* Cor do texto preto */ 
+				border:1px solid ;
+                border-radius: 5px;        /* Borda arredondada */
+				border-top-right-radius:20px;
+                padding: 5px 10px;          /* Espaçamento interno */
+}
+QPushButton:hover {
+                background-color: #000000;  /* Altera a cor de fundo ao passar o mouse */
+                color: #FFFFFF;            /* Altera a cor do texto ao passar o mouse */
+}</string>
+                </property>
+                <property name="text">
+                 <string>Procurar</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_16">
+              <item>
+               <widget class="QRadioButton" name="radio_pdf">
+                <property name="text">
+                 <string>Gerar em PDF</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radio_exce">
+                <property name="text">
+                 <string>Gerar em Excel</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_15">
+              <item>
+               <widget class="QLabel" name="label_15">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_importar">
+                <property name="font">
+                 <font>
+                  <pointsize>-1</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">/* Estilos padrão do botão */
+QPushButton {
+    display: inline-block;
+	font-size: 16px;
+    padding: 12px 20px;	
+	background-color: rgb(255, 255, 255);
+    
+	color: rgb(0, 0, 0);
+    border-radius: 20px;
+	border:1px solid;
+	gridline-color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Estilos do botão ao passar o mouse */
+QPushButton:hover {
+    
+	
+	background-color: rgb(195, 195, 195);
+}
+</string>
+                </property>
+                <property name="text">
+                 <string>IMPORTAR</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_16">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
           <widget class="QWidget" name="tab_contratos">
            <attribute name="title">
@@ -289,7 +457,7 @@ QPushButton:hover {
                 </property>
                 <property name="icon">
                  <iconset theme="search">
-                  <normaloff>.</normaloff>.</iconset>
+                  <normaloff>../../../../.designer/backup</normaloff>../../../../.designer/backup</iconset>
                 </property>
                </widget>
               </item>
@@ -405,7 +573,7 @@ QPushButton:hover {
                 </property>
                 <property name="icon">
                  <iconset theme="search">
-                  <normaloff>.</normaloff>.</iconset>
+                  <normaloff>../../../../.designer/backup</normaloff>../../../../.designer/backup</iconset>
                 </property>
                </widget>
               </item>
@@ -529,7 +697,7 @@ QPushButton:hover {
                 </property>
                 <property name="icon">
                  <iconset theme="search">
-                  <normaloff>.</normaloff>.</iconset>
+                  <normaloff>../../../../.designer/backup</normaloff>../../../../.designer/backup</iconset>
                 </property>
                </widget>
               </item>
@@ -638,7 +806,7 @@ QPushButton:hover {
                 </property>
                 <property name="icon">
                  <iconset theme="search">
-                  <normaloff>.</normaloff>.</iconset>
+                  <normaloff>../../../../.designer/backup</normaloff>../../../../.designer/backup</iconset>
                 </property>
                </widget>
               </item>
@@ -1091,7 +1259,7 @@ background-size: cover;
   </widget>
  </widget>
  <resources>
-  <include location="IMAGE/images.qrc"/>
+  <include location="../IMAGE/images.qrc"/>
  </resources>
  <connections/>
 </ui>
