@@ -19,7 +19,7 @@ class Login(QWidget, Ui_login):
 
         self.btn_login.clicked.connect(self.check_login)
 
-    def msg(type: QMessageBox, title, text):
+    def msg(self, type, title, text):
         msg = QMessageBox()
         msg.setIcon(type)
         msg.setWindowTitle(title)
@@ -30,7 +30,7 @@ class Login(QWidget, Ui_login):
         # print('check_login')
         self.users = Database()
         self.users.conection()
-        autentication = self.users.check_user(self.txt_login_nome.text(), self.txt_login_senha.text())
+        autentication = self.users.check_user(self.txt_login_matricula.text(), self.txt_login_senha.text())
         # print(f'autentication: {autentication} ({self.txt_login_nome.text()}, {self.txt_login_senha.text()})')
 
         if autentication in ["Usuário", "Administrador do Setor", "Administrador Geral"]:
@@ -87,9 +87,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             return None
 
         nome = self.txt_nome.text()
-        setor = self.txt_setor.text()
+        setor = self.cb_setor.currentText()
         senha = self.txt_senha.text()
         acesso = self.cb_perfil.currentText()
+        matricula = self.txt_matricula.text()
 
         if nome == "" or setor == "" or senha == "" or acesso == "":
             self.msg(QMessageBox.Warning, "Campos Vazios", "Todos os campos devem ser preenchidos!")
@@ -97,12 +98,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         db=Database()
         db.conection()
-        db.insert_user(nome, setor, senha, acesso)
+        db.insert_user(nome, matricula, setor, senha, acesso)
         db.close_conection()
 
         self.msg(QMessageBox.Information, "Cadastro", "Cadastro realizado com sucesso!")
 
-        self.txt_setor.setText("")
+        self.cb_setor.setText("")
         self.txt_matricula.setText("")
         self.txt_senha.setText("")
         self.txt_senha_2.setText("")
@@ -115,7 +116,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # cn = sqlite3.connect('contratos.db')
         # resultado = pd.read_sql_query("SELECT * FROM ", cn)
 
-        resultado = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\contratos.xlsx')
+        caminho = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'ARQUIVOS', 'contratos.xlsx')
+        resultado = pd.read_excel(caminho)
         resultado = resultado.astype(str)
         resultado.fillna(np.nan, inplace=True)
         resultado.replace('nan', '', inplace=True)
@@ -138,7 +140,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def table_contabil(self):
         self.tw_contabil.setStyleSheet(u' QHeaderView{ color:black}; color: rgb(0, 0, 0); font-size: 15px;')
 
-        resultado = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\contabil.xlsx')
+        caminho = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'ARQUIVOS', 'contabil.xlsx')
+        resultado = pd.read_excel(caminho)
 
         resultado.fillna('', inplace=True)
         resultado.replace(np.nan, '', inplace=True)
@@ -166,7 +169,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def table_obras(self):
         self.tw_contratos.setStyleSheet(u' QHeaderView{ color:black}; color: rgb(0, 0, 0); font-size: 15px;')
 
-        resultado = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\contratos.xlsx')
+        caminho = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'ARQUIVOS', 'contratos.xlsx')
+        resultado = pd.read_excel(caminho)
 
         # cn = sqlite3.connect('contratos.db')
         # resultado = pd.read_sql_query("SELECT * FROM ", cn)
@@ -193,7 +197,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # cn = sqlite3.connect('contratos.db')
         # resultado = pd.read_sql_query("SELECT * FROM ", cn)
 
-        resultado = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\engenharia.xlsx')
+        caminho = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'ARQUIVOS', 'engenharia.xlsx')
+        resultado = pd.read_excel(caminho)
                 
         for coluna in resultado.columns: 
             # print(coluna)
@@ -230,7 +235,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def table_financeiro(self):
         self.tw_financeiro.setStyleSheet(u' QHeaderView{ color:black}; color: rgb(0, 0, 0); font-size: 15px;')
 
-        resultado = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\financeiro.xlsx')
+        caminho = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'ARQUIVOS', 'financeiro.xlsx')
+        resultado = pd.read_excel(caminho)
         include = ['CONTRATO N°', 'MEDIÇÕES', 'NOTA FISCAL']
         resultado[include] = resultado[include].astype(str)
 
@@ -294,7 +300,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 if __name__=="__main__":
     app = QApplication(sys.argv)
-    # window = Login()
-    window = MainWindow('Administrador do Setor')
+    window = Login()
+    # window = MainWindow('Administrador do Setor')
     window.show()
     app.exec_()

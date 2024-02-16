@@ -7,6 +7,7 @@ import pandas as pd
 from datetime import datetime
 import os
 import shutil
+import sqlite3
 
 ## CODIGO que cancela as Warnings do pandas
 import warnings
@@ -15,47 +16,36 @@ warnings.filterwarnings("ignore", category=SettingWithCopyWarning)
 
 
 # Função para criar uma tabela a partir do DataFrame
-def create_table_from_dataframe(dataframe):
-    """
-	Cria uma tabela a partir de um DataFrame.
+def create_table_from_dataframe(dataframe, contrato):
+    # if '/' in contrato: contrato = contrato.split('/')[0]
+    # Exclua as linhas onde 'NL' aparece na coluna 'Coluna1'
+    dataframe = dataframe[~dataframe['Documento'].str.contains('NL')]
 
-	Parâmetros:
-		dataframe (pandas.DataFrame): O DataFrame a ser convertido em tabela.
+    # O operador ~ nega o resultado do .str.contains(), mantendo as linhas que não contêm 'NL'.
+    dataframe = dataframe[dataframe['CONTRATO_N°'] == contrato]
 
-	Retorno:
-		list: Uma lista contendo os dados da tabela.
-	"""
-
-     # # Verificar se coluna1 está vazia e obter valores de coluna2
-    valores_coluna1 = []
-    valores_coluna2 = []
+    valores = []
     for index, row in dataframe.iterrows():
-        if pd.isna(row['VALOR ANULADO (R$)']) or row['VALOR ANULADO (R$)'] == '':
-            valores_coluna2.append('EMPENHO')
-            valores_coluna1.append(row['VALOR EMPENHADO (R$)'])
-        else:
-            valores_coluna2.append(row['VALOR TOTAL (R$)'])  # Se coluna1 não estiver vazia, insira None
-            valores_coluna1.append(row['VALOR ANULADO (R$)']*-1)
+        if 'Anula' in row['Evento']: valores.append(row['Valor']*-1)
+        else: valores.append(row['Valor'])
 
-    # Adicionar a lista de valores de coluna2 como uma nova coluna no DataFrame
-    dataframe['TIPO'] = valores_coluna2
-    dataframe['VALOR'] = valores_coluna1
-    dataframe = dataframe[['TIPO', 'EMPENHO', 'UNIDADE ORÇAMENTARIA', 'PROGRAMA DE TRABALHO', 'FONTE DE RECURSO', 'NATUREZA DESPESA', 'CONTA CONTÁBIL', 'VALOR']]
+    dataframe['Valor'] = valores
+    dataframe = dataframe[['Evento', 'Documento', 'Data', 'PROGRAMA_DE_TRABALHO', 'FONTE_DE_RECURSO', 'NATUREZA_DESPESA', 'CONTA_CONTÁBIL', 'Valor']]
     dataframe = dataframe.fillna('')
 
     table_data = dataframe.values.tolist()
     for l,linha in enumerate(table_data): 
         for c,coluna in enumerate(linha): 
-            # if coluna=='nan' or coluna==None or coluna=='': table_data[l][c] = ''
+            # Convertendo a informação para apenas valores numéricos
             if type(coluna)==str and ' - 'in coluna: 
                 table_data[l][c] = coluna.split(' - ')[0]
+            # Formate o número para o formato desejado
             if type(coluna)==float:
-                # Formate o número para o formato desejado
                 table_data[l][c] = '{:,.2f}'.format(coluna).replace(',', '_').replace('.', ',').replace('_', '.')
-    
+
     # for i in table_data: 
-    table_data.insert(0, ['TIPO', 'EMPENHO', 'U.O.',
-       'PT', 'FONTE', 'NATUREZA', 'C. CONTÁBIL', 'VALOR'])  # Cabeçalho da tabela
+    table_data.insert(0, ['TIPO', 'DOCUMENTO', 'DATA',
+        'PT', 'FONTE', 'NATUREZA', 'C. CONTÁBIL', 'VALOR'])  # Cabeçalho da tabela
     # table_data.extend(dataframe.values.tolist())  # Dados do DataFrame
     return table_data
 
@@ -64,11 +54,10 @@ def nova_pagina(c:canvas.Canvas, y, atualiza=0):
     y -= atualiza
     if y < 30: 
         c.showPage()
-        frame=Frame(x1=15,y1=15,width=largura-30,height=altura-30,showBoundary=1)
-        frame.addFromList([],c)
+        # frame=Frame(x1=15,y1=15,width=largura-30,height=altura-30,showBoundary=1)
+        # frame.addFromList([],c)
         return cabecalho(c,altura,largura) - atualiza
     else: return y
-
 
 def centralizar_texto(pdf: canvas.Canvas, y_titulo, titulo, fontName, fontSize, espacamento=20):         
     # Calcular a posição X para centralizar o título
@@ -114,7 +103,7 @@ def inserir_imagem(pdf:canvas.Canvas,nome_imagem: str, x: int, y: int, largura=N
         
         return: (nova_largura, nova_altura)
     '''
-    path=r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\IMAGE'+'\\'+nome_imagem
+    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'IMAGE', nome_imagem)
     image = Image(path,0,0)
     altura_imagem, largura_imagem = image.imageHeight, image.imageWidth
 
@@ -133,8 +122,8 @@ def inserir_imagem(pdf:canvas.Canvas,nome_imagem: str, x: int, y: int, largura=N
 def cabecalho(pdf: canvas.Canvas, altura_pag, largura_pag):
     margens = 15 # Definindo as margens
     # Margens do relatorio
-    frame0=Frame(margens,margens,largura_pag-margens*2,altura_pag-margens*2, showBoundary=1)
-    frame0.addFromList([], pdf)
+    # frame0=Frame(margens,margens,largura_pag-margens*2,altura_pag-margens*2, showBoundary=1)
+    # frame0.addFromList([], pdf)
     
     # Imagem Pref, 1 parte do cabecalho
     cabecalho1 = inserir_imagem(pdf,'cabeçalho esq.png', margens+5, altura_pag - (margens+5), 180)
@@ -187,7 +176,7 @@ def rodape(pdf:canvas.Canvas):
         alt = paragrafo_rodape.wrap(landscape(A4)[0], 0)[1]
         paragrafo_rodape.drawOn(pdf, 0, 15+2)
 
-def caminho(file_name="file.pdf", dir=None):
+def download(file_name="file.pdf", dir=None):
     print(dir, type(dir))
     # Obtenha o diretório de downloads do sistema
     if dir==None: dir = os.path.expanduser('~' + os.sep + 'Downloads')
@@ -205,10 +194,15 @@ def caminho(file_name="file.pdf", dir=None):
 
 def gerar(path):
     # Lê o DataFrame do arquivo Excel
-    df = pd.read_excel(r'C:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\ARQUIVOS\obras_2021.xlsx')
+    caminho_obras_db = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'DATABASE', 'OBRAS.db')
+
+    conn = sqlite3.connect(caminho_obras_db)
+    df_relsalemp = pd.read_sql_query("SELECT * FROM Relsalemp_completo", conn)
+    df_contratos = pd.read_sql_query("SELECT * FROM Contratos", conn)
+    conn.close()
 
     # Cria um arquivo PDF
-    pdf_file = caminho("relatorio_de_obras.pdf", path)
+    pdf_file = download("relatorio_de_obras.pdf", path)
     c = canvas.Canvas(pdf_file, pagesize=landscape(A4))
     largura, altura = landscape(A4)
     # largura x altura
@@ -218,57 +212,70 @@ def gerar(path):
     style_normal = getSampleStyleSheet()['Normal']
 
 
-    frame=Frame(x1=15,y1=15,width=largura-30,height=altura-30,showBoundary=1)
-    frame.addFromList([],c)
+    # frame=Frame(x1=15,y1=15,width=largura-30,height=altura-30,showBoundary=1)
+    # frame.addFromList([],c)
 
     x, y = int(largura/2), cabecalho(c,altura,largura)
 
 
     # Lista de contratos processados não repetidos
     contratos_processados = set()
-    for n_contrato in df["CONTRATO N°"]:
+    for n_contrato in df_contratos["CONTRATO_N°"]:
         if n_contrato not in contratos_processados:
-            corte_df = df[df['CONTRATO N°'] == n_contrato]
-            t_corte_df = corte_df[['VALOR EMPENHADO (R$)', 'VALOR ANULADO (R$)', 'VALOR TOTAL (R$)', 'EMPENHO', 'UNIDADE ORÇAMENTARIA', 'PROGRAMA DE TRABALHO', 'FONTE DE RECURSO', 'NATUREZA DESPESA', 'CONTA CONTÁBIL']]
 
-
-            # Cria um parágrafo com informações
-            paragraph1 = Paragraph(f"<b>Objeto:</b> {corte_df['OBJETO'].values[0]}", style_normal)
+            # Cria um parágrafo com informações do objeto
+            paragraph1 = Paragraph(f"<b>Objeto:</b> {df_contratos[df_contratos['CONTRATO_N°']==n_contrato]['OBJETO'].values[0]}", style_normal)
             paragraph1_largura, paragraph1_altura = paragraph1.wrapOn(c, 700, 50)  # Define o tamanho do parágrafo
             y = nova_pagina(c,y,paragraph1_altura+20)
             paragraph1.drawOn(c, x-paragraph1_largura/2, y)
 
+            # Cria um parágrafo com informações do credor
+            paragraph2 = Paragraph(f"<b>Credor/Empresa:</b> {df_contratos[df_contratos['CONTRATO_N°']==n_contrato]['EMPRESA'].values[0]}", style_normal)
+            paragraph2_largura, paragraph2_altura = paragraph2.wrapOn(c, 700, 50)  # Define o tamanho do parágrafo
+            y = nova_pagina(c,y,paragraph2_altura+2)
+            paragraph2.drawOn(c, x-paragraph2_largura/2, y)
 
-            vlr_contrato = corte_df['VALOR DO CONTRATO (R$)'].values[0]
+
+            vlr_contrato = df_contratos[df_contratos['CONTRATO_N°']==n_contrato]['VALOR_DO_CONTRATO'].values[0]
 
             # Cria uma tabela com informações para o paragrafo
-            data = [[Paragraph(f"<b>N° do Contrato:</b> {corte_df['CONTRATO N°'].values[0]}"), Paragraph(f"<b>Situação da Obra:</b> {corte_df['SITUAÇÃO DA OBRA'].values[0]}"), Paragraph(f"<b>Vlr. do Contrato:</b> {'{:,.2f}'.format(vlr_contrato).replace(',', '_').replace('.', ',').replace('_', '.')}")]]
-            paragraph2 = Table(data, colWidths=[((700)/3)])
-            paragraph2_largura, paragraph2_altura = paragraph2.wrapOn(c, 700, 400)
-            y = nova_pagina(c,y,paragraph2_altura)
-            paragraph2.drawOn(c, x-paragraph2_largura/2, y)  # Ajuste o valor de Y conforme necessário
+            data = [[Paragraph(f"<b>N° do Contrato:</b> {df_contratos[df_contratos['CONTRATO_N°']==n_contrato]['CONTRATO_N°'].values[0]}"), Paragraph(f"<b>Situação da Obra:</b> {df_contratos[df_contratos['CONTRATO_N°']==n_contrato]['SITUAÇÃO_DA_OBRA'].values[0]}"), Paragraph(f"<b>Vlr. do Contrato:</b> {'{:,.2f}'.format(vlr_contrato).replace(',', '_').replace('.', ',').replace('_', '.')}")]]
+            paragraph3 = Table(data, colWidths=[((700)/3)])
+            paragraph3_largura, paragraph3_altura = paragraph3.wrapOn(c, 700, 400)
+            y = nova_pagina(c,y,paragraph3_altura)
+            paragraph3.drawOn(c, x-paragraph3_largura/2, y)  # Ajuste o valor de Y conforme necessário
             
 
             # Cria uma tabela com informações
-            table_data = create_table_from_dataframe(t_corte_df)
-            table = Table(table_data, colWidths=[120, 90, 50, 120, 70, 70, 90], rowHeights=22.5)
-            style = TableStyle([
-                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),  # Cor do texto do cabeçalho
-                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),  # Alinhamento no centro
-                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),  # Alinhamento vertical no meio das células
-                ('ALIGN', (-1,0), (-1,-1), 'RIGHT'),  # Alinhe à direita
-                ('ALIGN', (0,0), (0,-1), 'LEFT'),  # Alinhe à direita
-                ('LINEABOVE', (0, 0), (-1, 0), 2, colors.black),  # Linha inferior do cabeçalho
-                ('LINEBELOW', (0, 0), (-1, 0), 2, colors.black),  # Linha superior da última linha
-                ('LINEBELOW', (0, -1), (-1, -1), 2, colors.black),  # Linha superior da última linha
-            ])
-            for i in range(1, len(table_data), 2): style.add('BACKGROUND', (0, i), (-1, i), colors.lightgrey)
-            table.setStyle(style)
-            # Define a posição da tabela e desenha-a no canvas
-            table_largura, table_altura = table.wrapOn(c, 700, 400)
-            y = nova_pagina(c,y,table_altura+5)
-            table.drawOn(c, x-table_largura/2, y)  # Ajuste o valor de Y conforme necessário
+            table_data = create_table_from_dataframe(df_relsalemp, n_contrato)
+            for indice,linha in enumerate(table_data):
+                table = Table([list(linha)], colWidths=[120, 90, 50, 120, 70, 70, 90], rowHeights=22.5)
+                style = TableStyle([
+                    ('ALIGN', (0, 0), (-1, -1), 'CENTER'),  # Alinhamento no centro
+                    ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),  # Alinhamento vertical no meio das células
+                    ('ALIGN', (-1,0), (-1,-1), 'RIGHT'),  # Alinhe à direita
+                    ('ALIGN', (0,0), (0,-1), 'LEFT')  # Alinhe à direita
+                ])
+
+                if indice==0:
+                    style.add('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold')
+                    style.add('TEXTCOLOR', (0, 0), (-1, 0), colors.black)  # Cor do texto do cabeçalho
+                    style.add('LINEABOVE', (0, 0), (-1, 0), 2, colors.black) # Linha inferior do cabeçalho
+                    style.add('LINEBELOW', (0, 0), (-1, 0), 2, colors.black) # Linha superior do cabeçalho
+                    
+
+                elif indice==len(table_data)-1:
+                    style.add('LINEBELOW', (0, -1), (-1, -1), 2, colors.black) # Linha superior da última linha
+        
+                if indice%2==0: style.add('BACKGROUND', (0, 0), (-1, -1), colors.lightgrey)
+                # print(style)
+                table.setStyle(style)
+                # Define a posição da tabela e desenha-a no canvas
+                table_largura, table_altura = table.wrapOn(c, 700, 400)
+                y = nova_pagina(c,y,table_altura)
+                table.drawOn(c, x-table_largura/2, y)  # Ajuste o valor de Y conforme necessário
+            
+            # y = nova_pagina(c,y,5)
             
 
             # Soma dos empenhos 
@@ -281,7 +288,7 @@ def gerar(path):
             styles.alignment = 2
 
             # Cria uma tabela com informações para o paragrafo
-            data1 = [[Paragraph(f"<b>Depreciação :</b> {'nan'}"),  Paragraph(f"<b>Saldo do Contrato:</b> {'{:,.2f}'.format(vlr_contrato).replace(',', '_').replace('.', ',').replace('_', '.')}", styles)]]
+            data1 = [[Paragraph(f" "),  Paragraph(f"<b>Saldo do Contrato:</b> {'{:,.2f}'.format(vlr_contrato).replace(',', '_').replace('.', ',').replace('_', '.')}", styles)]]
             paragraph3_style = TableStyle([
                 ('BACKGROUND', (0, 0), (-1, -1), (0.9,0.9,0.9)),  # Cor de fundo das células de dados
                 ('LINEABOVE', (0, 0), (-1, 0), 2, colors.black),  # Linha inferior do cabeçalho
@@ -300,3 +307,8 @@ def gerar(path):
     # Fecha o arquivo PDF
     c.save()
     return f'O arquivo relatorio_de_obras.pdf foi criado com sucesso!'
+
+if __name__=='__main__':
+    
+    path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'ARQUIVOS')
+    gerar(path)

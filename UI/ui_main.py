@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(905, 603)
+        MainWindow.resize(903, 609)
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -550,7 +550,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.label_2)
 
         self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setSpacing(25)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(40, -1, 20, -1)
         self.label_3 = QLabel(self.pg_cadastro)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setFont(font3)
@@ -567,26 +569,9 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_2)
 
-        self.horizontalLayout_8 = QHBoxLayout()
-        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.label_10 = QLabel(self.pg_cadastro)
-        self.label_10.setObjectName(u"label_10")
-        self.label_10.setFont(font3)
-        self.label_10.setStyleSheet(u"background-color: rgb(255, 222, 155, 0);")
-
-        self.horizontalLayout_8.addWidget(self.label_10)
-
-        self.txt_setor = QLineEdit(self.pg_cadastro)
-        self.txt_setor.setObjectName(u"txt_setor")
-        self.txt_setor.setStyleSheet(u"background-color: rgb(255, 255, 255, 0.75);")
-
-        self.horizontalLayout_8.addWidget(self.txt_setor)
-
-
-        self.verticalLayout_4.addLayout(self.horizontalLayout_8)
-
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(40, -1, 20, -1)
         self.label_4 = QLabel(self.pg_cadastro)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setFont(font3)
@@ -604,7 +589,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addLayout(self.horizontalLayout_3)
 
         self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setSpacing(25)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalLayout_4.setContentsMargins(40, -1, 20, -1)
         self.label_5 = QLabel(self.pg_cadastro)
         self.label_5.setObjectName(u"label_5")
         self.label_5.setFont(font3)
@@ -623,7 +610,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addLayout(self.horizontalLayout_4)
 
         self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setSpacing(25)
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalLayout_5.setContentsMargins(40, -1, 20, -1)
         self.label_6 = QLabel(self.pg_cadastro)
         self.label_6.setObjectName(u"label_6")
         self.label_6.setFont(font3)
@@ -641,27 +630,61 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_5)
 
+        self.horizontalLayout_19 = QHBoxLayout()
+        self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
+        self.horizontalLayout_19.setContentsMargins(40, -1, 20, -1)
         self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setSpacing(5)
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.label_10 = QLabel(self.pg_cadastro)
+        self.label_10.setObjectName(u"label_10")
+        self.label_10.setFont(font3)
+        self.label_10.setStyleSheet(u"background-color: rgb(255, 222, 155, 0);")
+
+        self.horizontalLayout_7.addWidget(self.label_10)
+
+        self.cb_setor = QComboBox(self.pg_cadastro)
+        self.cb_setor.addItem("")
+        self.cb_setor.addItem("")
+        self.cb_setor.addItem("")
+        self.cb_setor.addItem("")
+        self.cb_setor.setObjectName(u"cb_setor")
+        self.cb_setor.setMinimumSize(QSize(330, 0))
+        self.cb_setor.setFont(font3)
+        self.cb_setor.setStyleSheet(u"background-color: rgb(255, 255, 255, 0.75);")
+
+        self.horizontalLayout_7.addWidget(self.cb_setor)
+
+
+        self.horizontalLayout_19.addLayout(self.horizontalLayout_7)
+
+        self.horizontalLayout_8 = QHBoxLayout()
+        self.horizontalLayout_8.setSpacing(7)
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.horizontalLayout_8.setContentsMargins(10, -1, -1, -1)
         self.label_7 = QLabel(self.pg_cadastro)
         self.label_7.setObjectName(u"label_7")
         self.label_7.setFont(font3)
         self.label_7.setStyleSheet(u"background-color: rgb(255, 222, 155, 0);")
 
-        self.horizontalLayout_7.addWidget(self.label_7)
+        self.horizontalLayout_8.addWidget(self.label_7)
 
         self.cb_perfil = QComboBox(self.pg_cadastro)
         self.cb_perfil.addItem("")
         self.cb_perfil.addItem("")
         self.cb_perfil.addItem("")
         self.cb_perfil.setObjectName(u"cb_perfil")
+        self.cb_perfil.setMinimumSize(QSize(300, 0))
         self.cb_perfil.setFont(font3)
         self.cb_perfil.setStyleSheet(u"background-color: rgb(255, 255, 255, 0.75);")
 
-        self.horizontalLayout_7.addWidget(self.cb_perfil)
+        self.horizontalLayout_8.addWidget(self.cb_perfil)
 
 
-        self.verticalLayout_4.addLayout(self.horizontalLayout_7)
+        self.horizontalLayout_19.addLayout(self.horizontalLayout_8)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_19)
 
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
@@ -726,6 +749,28 @@ class Ui_MainWindow(object):
 
         self.btn_cadastrar_user = QPushButton(self.pg_config)
         self.btn_cadastrar_user.setObjectName(u"btn_cadastrar_user")
+        self.btn_cadastrar_user.setStyleSheet(u"/* Estilos padr\u00e3o do bot\u00e3o */\n"
+"QPushButton {\n"
+"    display: inline-block;\n"
+"	font-size: 16px;\n"
+"    padding: 12px 20px;	\n"
+"	background-color: rgb(255, 255, 255);\n"
+"    \n"
+"	color: rgb(0, 0, 0);\n"
+"    border-radius: 20px;\n"
+"	border:1px solid;\n"
+"	gridline-color: rgb(0, 0, 0);\n"
+"    cursor: pointer;\n"
+"    transition: background-color 0.3s;\n"
+"}\n"
+"\n"
+"/* Estilos do bot\u00e3o ao passar o mouse */\n"
+"QPushButton:hover {\n"
+"    \n"
+"	\n"
+"	background-color: rgb(195, 195, 195);\n"
+"}\n"
+"")
 
         self.horizontalLayout_9.addWidget(self.btn_cadastrar_user)
 
@@ -756,10 +801,40 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.rodape)
 
         MainWindow.setCentralWidget(self.centralwidget)
+        QWidget.setTabOrder(self.btn_home, self.btn_obras)
+        QWidget.setTabOrder(self.btn_obras, self.btn_sobre)
+        QWidget.setTabOrder(self.btn_sobre, self.btn_contato)
+        QWidget.setTabOrder(self.btn_contato, self.btn_config)
+        QWidget.setTabOrder(self.btn_config, self.txt_nome)
+        QWidget.setTabOrder(self.txt_nome, self.txt_matricula)
+        QWidget.setTabOrder(self.txt_matricula, self.txt_senha)
+        QWidget.setTabOrder(self.txt_senha, self.txt_senha_2)
+        QWidget.setTabOrder(self.txt_senha_2, self.cb_setor)
+        QWidget.setTabOrder(self.cb_setor, self.cb_perfil)
+        QWidget.setTabOrder(self.cb_perfil, self.btn_cadastro_usuario)
+        QWidget.setTabOrder(self.btn_cadastro_usuario, self.txt_procurar_contratos)
+        QWidget.setTabOrder(self.txt_procurar_contratos, self.tw_contratos)
+        QWidget.setTabOrder(self.tw_contratos, self.btn_procurar_financeiro)
+        QWidget.setTabOrder(self.btn_procurar_financeiro, self.txt_procurar_financeiro)
+        QWidget.setTabOrder(self.txt_procurar_financeiro, self.tw_financeiro)
+        QWidget.setTabOrder(self.tw_financeiro, self.btn_procurar_contabil)
+        QWidget.setTabOrder(self.btn_procurar_contabil, self.txt_procurar_contabil)
+        QWidget.setTabOrder(self.txt_procurar_contabil, self.tw_contabil)
+        QWidget.setTabOrder(self.tw_contabil, self.btn_procurar_engenharia)
+        QWidget.setTabOrder(self.btn_procurar_engenharia, self.txt_procurar_engenharia)
+        QWidget.setTabOrder(self.txt_procurar_engenharia, self.tw_engenharia)
+        QWidget.setTabOrder(self.tw_engenharia, self.tabWidget)
+        QWidget.setTabOrder(self.tabWidget, self.btn_open_dir)
+        QWidget.setTabOrder(self.btn_open_dir, self.radio_pdf)
+        QWidget.setTabOrder(self.radio_pdf, self.radio_exce)
+        QWidget.setTabOrder(self.radio_exce, self.btn_importar)
+        QWidget.setTabOrder(self.btn_importar, self.btn_procurar_contratos)
+        QWidget.setTabOrder(self.btn_procurar_contratos, self.btn_cadastrar_user)
+        QWidget.setTabOrder(self.btn_cadastrar_user, self.txt_path)
 
         self.retranslateUi(MainWindow)
 
-        self.pages.setCurrentIndex(0)
+        self.pages.setCurrentIndex(3)
         self.tabWidget.setCurrentIndex(0)
 
 
@@ -836,12 +911,17 @@ class Ui_MainWindow(object):
         self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:20pt; font-weight:600;\">CONTROLE DE OBRAS INTEGRADO</span></p></body></html>", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:24pt; font-weight:600;\">CADASTRAR USU\u00c1RIO</span></p></body></html>", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
-        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Setor", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Matr\u00edcula", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Senha", None))
         self.txt_senha.setText("")
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Senha", None))
         self.txt_senha_2.setText("")
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"Setor", None))
+        self.cb_setor.setItemText(0, QCoreApplication.translate("MainWindow", u"Financeiro", None))
+        self.cb_setor.setItemText(1, QCoreApplication.translate("MainWindow", u"Contrato", None))
+        self.cb_setor.setItemText(2, QCoreApplication.translate("MainWindow", u"Engenharia", None))
+        self.cb_setor.setItemText(3, QCoreApplication.translate("MainWindow", u"Cont\u00e1bil", None))
+
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Perfil", None))
         self.cb_perfil.setItemText(0, QCoreApplication.translate("MainWindow", u"Usu\u00e1rio", None))
         self.cb_perfil.setItemText(1, QCoreApplication.translate("MainWindow", u"Administrador do Setor", None))

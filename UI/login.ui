@@ -87,7 +87,7 @@ QPushButton:hover{
      <string>Senha</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="txt_login_nome">
+   <widget class="QLineEdit" name="txt_login_matricula">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -100,7 +100,7 @@ QPushButton:hover{
      <set>Qt::AlignCenter</set>
     </property>
     <property name="placeholderText">
-     <string>Usuário</string>
+     <string>Matrícula</string>
     </property>
    </widget>
   </widget>
@@ -125,7 +125,7 @@ QPushButton:hover{
   </widget>
  </widget>
  <tabstops>
-  <tabstop>txt_login_nome</tabstop>
+  <tabstop>txt_login_matricula</tabstop>
   <tabstop>txt_login_senha</tabstop>
   <tabstop>btn_login</tabstop>
  </tabstops>

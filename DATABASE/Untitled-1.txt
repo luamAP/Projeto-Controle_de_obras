@@ -1,0 +1,18 @@
+-- database: c:\Users\luan.pinto\Desktop\Códigos\Projeto - Controle de obras\DATABASE\OBRAS.db
+
+-- Pressione o botão ▷ no canto superior direito da janela para executar todo o arquivo.
+
+CREATE TABLE "Relsalemp_completo-copy" (
+"Evento" TEXT,
+  "Documento" TEXT,
+  "Data" TEXT,
+  "Valor" TEXT,
+  "EMPENHO" TEXT,
+  "UNIDADE_ORÇAMENTARIA" TEXT,
+  "PROGRAMA_DE_TRABALHO" TEXT,
+  "FONTE_DE_RECURSO" TEXT,
+  "NATUREZA_DESPESA" TEXT,
+  "CONTA_CONTÁBIL" TEXT,
+  "CONTRATO_N°" TEXT
+);
+INSERT INTO "Relsalemp_completo-copy" SELECT * FROM "Relsalemp_completo";

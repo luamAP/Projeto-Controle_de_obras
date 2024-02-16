@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>905</width>
-    <height>603</height>
+    <width>936</width>
+    <height>611</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -207,7 +207,7 @@ QPushButton:hover {
        <string notr="true">background-color: rgb(255, 222, 155);</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="pg_obras">
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -932,6 +932,15 @@ QPushButton:hover {
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
+           <number>25</number>
+          </property>
+          <property name="leftMargin">
+           <number>40</number>
+          </property>
+          <property name="rightMargin">
+           <number>20</number>
+          </property>
           <item>
            <widget class="QLabel" name="label_3">
             <property name="font">
@@ -957,33 +966,13 @@ QPushButton:hover {
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_8">
-          <item>
-           <widget class="QLabel" name="label_10">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 222, 155, 0);</string>
-            </property>
-            <property name="text">
-             <string>Setor</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="txt_setor">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255, 0.75);</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="leftMargin">
+           <number>40</number>
+          </property>
+          <property name="rightMargin">
+           <number>20</number>
+          </property>
           <item>
            <widget class="QLabel" name="label_4">
             <property name="font">
@@ -1010,6 +999,15 @@ QPushButton:hover {
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="spacing">
+           <number>25</number>
+          </property>
+          <property name="leftMargin">
+           <number>40</number>
+          </property>
+          <property name="rightMargin">
+           <number>20</number>
+          </property>
           <item>
            <widget class="QLabel" name="label_5">
             <property name="font">
@@ -1042,6 +1040,15 @@ QPushButton:hover {
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <property name="spacing">
+           <number>25</number>
+          </property>
+          <property name="leftMargin">
+           <number>40</number>
+          </property>
+          <property name="rightMargin">
+           <number>20</number>
+          </property>
           <item>
            <widget class="QLabel" name="label_6">
             <property name="font">
@@ -1073,48 +1080,130 @@ QPushButton:hover {
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <layout class="QHBoxLayout" name="horizontalLayout_19">
+          <property name="leftMargin">
+           <number>40</number>
+          </property>
+          <property name="rightMargin">
+           <number>20</number>
+          </property>
           <item>
-           <widget class="QLabel" name="label_7">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <property name="spacing">
+             <number>5</number>
             </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 222, 155, 0);</string>
-            </property>
-            <property name="text">
-             <string>Perfil</string>
-            </property>
-           </widget>
+            <item>
+             <widget class="QLabel" name="label_10">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 222, 155, 0);</string>
+              </property>
+              <property name="text">
+               <string>Setor</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="cb_setor">
+              <property name="minimumSize">
+               <size>
+                <width>330</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255, 0.75);</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Financeiro</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Contrato</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Engenharia</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Contábil</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
-           <widget class="QComboBox" name="cb_perfil">
-            <property name="font">
-             <font>
-              <pointsize>12</pointsize>
-             </font>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <property name="spacing">
+             <number>7</number>
             </property>
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255, 0.75);</string>
+            <property name="leftMargin">
+             <number>10</number>
             </property>
             <item>
-             <property name="text">
-              <string>Usuário</string>
-             </property>
+             <widget class="QLabel" name="label_7">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 222, 155, 0);</string>
+              </property>
+              <property name="text">
+               <string>Perfil</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <property name="text">
-              <string>Administrador do Setor</string>
-             </property>
+             <widget class="QComboBox" name="cb_perfil">
+              <property name="minimumSize">
+               <size>
+                <width>300</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255, 0.75);</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Usuário</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Administrador do Setor</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Administrador Geral</string>
+               </property>
+              </item>
+             </widget>
             </item>
-            <item>
-             <property name="text">
-              <string>Administrador Geral</string>
-             </property>
-            </item>
-           </widget>
+           </layout>
           </item>
          </layout>
         </item>
@@ -1216,6 +1305,30 @@ QPushButton:hover {
           </item>
           <item>
            <widget class="QPushButton" name="btn_cadastrar_user">
+            <property name="styleSheet">
+             <string notr="true">/* Estilos padrão do botão */
+QPushButton {
+    display: inline-block;
+	font-size: 16px;
+    padding: 12px 20px;	
+	background-color: rgb(255, 255, 255);
+    
+	color: rgb(0, 0, 0);
+    border-radius: 20px;
+	border:1px solid;
+	gridline-color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Estilos do botão ao passar o mouse */
+QPushButton:hover {
+    
+	
+	background-color: rgb(195, 195, 195);
+}
+</string>
+            </property>
             <property name="text">
              <string>Cadastrar Usuário</string>
             </property>
@@ -1258,6 +1371,39 @@ background-size: cover;
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>btn_home</tabstop>
+  <tabstop>btn_obras</tabstop>
+  <tabstop>btn_sobre</tabstop>
+  <tabstop>btn_contato</tabstop>
+  <tabstop>btn_config</tabstop>
+  <tabstop>txt_nome</tabstop>
+  <tabstop>txt_matricula</tabstop>
+  <tabstop>txt_senha</tabstop>
+  <tabstop>txt_senha_2</tabstop>
+  <tabstop>cb_setor</tabstop>
+  <tabstop>cb_perfil</tabstop>
+  <tabstop>btn_cadastro_usuario</tabstop>
+  <tabstop>txt_procurar_contratos</tabstop>
+  <tabstop>tw_contratos</tabstop>
+  <tabstop>btn_procurar_financeiro</tabstop>
+  <tabstop>txt_procurar_financeiro</tabstop>
+  <tabstop>tw_financeiro</tabstop>
+  <tabstop>btn_procurar_contabil</tabstop>
+  <tabstop>txt_procurar_contabil</tabstop>
+  <tabstop>tw_contabil</tabstop>
+  <tabstop>btn_procurar_engenharia</tabstop>
+  <tabstop>txt_procurar_engenharia</tabstop>
+  <tabstop>tw_engenharia</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>btn_open_dir</tabstop>
+  <tabstop>radio_pdf</tabstop>
+  <tabstop>radio_exce</tabstop>
+  <tabstop>btn_importar</tabstop>
+  <tabstop>btn_procurar_contratos</tabstop>
+  <tabstop>btn_cadastrar_user</tabstop>
+  <tabstop>txt_path</tabstop>
+ </tabstops>
  <resources>
   <include location="../IMAGE/images.qrc"/>
  </resources>
